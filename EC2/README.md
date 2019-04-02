@@ -19,10 +19,9 @@ Terminate EC2 instances associated with Tag used in ec2.yml
 ## Dependencies
 
 - Python pip
-- AWS awscli
 - AWS boto, boto3
 
-Prior to running will need to run:
+Prior to running will need set up AWS credentials:
 
-> aws configure
-> ansible-vault create aws_keys.yml
+    > aws configure
+    > ansible-vault create aws_keys.yml
