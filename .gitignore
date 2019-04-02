@@ -1,2 +1,5 @@
 # AWS Keys file
 EC2/aws_keys.yml
+
+# Retry Playbooks
+*.retry
