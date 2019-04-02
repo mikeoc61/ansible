@@ -1,0 +1,38 @@
+---
+###
+# Ansible Playbook to identify EC2 instances with a given tag value and terminate
+#
+# Dependencies
+#    - AWS credentials stored in aws_keys.yml created wtih ansible vault
+#
+# Invoke with:
+#    - ansible-playbook -i hosts --ask-vault-pass ec2_down.yml
+###
+- hosts: local
+  connection: local
+  vars:
+    region: us-east-1
+    tag_val: webserver
+  vars_files:
+    - aws_keys.yml
+  tasks:
+    - name: Gather EC2 facts
+      ec2_instance_facts:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ region }}"
+        filters:
+          "tag:Type": "{{ tag_val }}"
+      register: ec2
+    - debug: var=ec2
+
+    - name: Terminate EC2 Instance(s)
+      ec2:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        instance_ids: '{{ item.instance_id }}'
+        state: absent
+        region: "{{ region }}"
+        wait: true
+      with_items: "{{ ec2.instances }}"
+...
