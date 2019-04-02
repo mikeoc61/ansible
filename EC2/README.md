@@ -10,7 +10,7 @@ Web server.
 
     > ansible-playbook -i hosts --ask-vault-pass ec2.yml
 
-## ec2_down,yml
+## ec2_down.yml
 
 Terminate EC2 instances associated with Tag used in ec2.yml
 
@@ -19,6 +19,7 @@ Terminate EC2 instances associated with Tag used in ec2.yml
 ## Dependencies
 
 - Python pip
+- AWS awscli
 - AWS boto, boto3
 
 Prior to running will need set up AWS credentials:
